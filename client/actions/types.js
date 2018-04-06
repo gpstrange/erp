@@ -1,0 +1,6 @@
+// Client
+
+export const FLASH_MESSAGE_ADD = 'FLASH_MESSAGE_ADD';
+export const FLASH_MESSAGE_DELETE = 'FLASH_MESSAGE_DELETE';
+
+export const USER_CURRENT_SET = 'USER_CURRENT_SET';
