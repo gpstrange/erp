@@ -14,7 +14,7 @@
     "express",
     "mysql"
   ],
-  "author": "Atul Yadav",
+  "author": "*",
   "license": "ISC",
   "repository": {
     "type": "git",
