@@ -11,7 +11,6 @@ import InputText from '../common/inputs/text';
 class UserRegister extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             username: '',
             password: '',
@@ -28,37 +27,31 @@ class UserRegister extends React.Component {
 
     isValid() {
         const { errors, isValid } = validateUserRegister(this.state);
-
         if(!isValid) {
             this.setState({ errors });
         }
-
         return isValid;
     }
 
     onSubmit(event) {
         event.preventDefault();
-
         if(this.isValid()) {
             this.setState({errors: {}, isLoading: true});
-
             this.props.userRegisterRequest(this.state).then(
                 (response) => {
                     console.log(response.data);
-
+                    if(!response.data.success){
+                        this.setState({ errors: error.response.data.errors, isLoading: false });
+                    }
                     this.props.flashMessageAdd({
                         type: 'success',
                         text: 'You have registered successfully.'
                     });
-
                     this.setState({isLoading: false});
-
                     this.context.router.push('/login');
                 },
-
                 (error) => {
                     console.log(error.response.data);
-
                     this.setState({errors: error.response.data.errors, isLoading: false});
                 }
             );
@@ -69,9 +62,8 @@ class UserRegister extends React.Component {
         return (
             <section>
                 <h2>Register</h2>
-
+                {this.state.errors.form && <div className="alert alert-danger">{this.state.errors.form}</div>}
                 <form onSubmit={ this.onSubmit.bind(this) }>
-
                     <InputText
                         error={ this.state.errors.username }
                         type="text"
@@ -80,9 +72,8 @@ class UserRegister extends React.Component {
                         name="username"
                         id="user-username"
                         label="Username"
-                        placeholder="Eg: jonsnow"
+                        placeholder="Eg: 711516106037"
                     />
-
                     <InputText
                         error={ this.state.errors.password }
                         type="password"
@@ -93,7 +84,6 @@ class UserRegister extends React.Component {
                         label="Password"
                         placeholder="Password"
                     />
-
                     <button type="submit" disabled={ this.state.isLoading } className="btn btn-default">Submit</button>
                 </form>
             </section>

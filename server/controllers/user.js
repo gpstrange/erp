@@ -18,7 +18,7 @@ export function checkUsernameAlreadyExists(data, cb) {
     let errors = {};
     connection.query(
         "SELECT * FROM users WHERE username = ?",
-        [username],
+        [data.username],
         function (err, rows) {
             if (err) return cb(err);
             if (rows.length) {
@@ -57,7 +57,7 @@ export function createUser(newUserMysql, cb) {
             newUserMysql.aadharNumber
         ],
         function (err, rows) {
-            if (err) console.log(err);
+            if (err) return cb(err);
             console.log(rows);
             newUserMysql.id = rows.insertId;
 
