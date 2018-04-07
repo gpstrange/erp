@@ -4,8 +4,8 @@ Lets build an ERP application for an educational institution.
 ## Setup
 - Clone the repository `git clone git@gitlab.com:Guru2402/erp-college.git`
 - Install npm modules `npm install`
-- Change the database configuration: `config/database.js`
-- Create the database schema: `node server/scripts/create_database.js` || execute `db.sql`
+- Change the database configuration: `server/configs/database.js`
+- Import tables from `dbDump.sql`
 - Install global npm modules `npm i -g nodemon webpack webpack-dev-server`
 - Run node server `npm start`
 

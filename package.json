@@ -35,7 +35,6 @@
     "axios": "^0.13.1",
     "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
-    "bookshelf": "^0.10.0",
     "classnames": "^2.2.5",
     "express": "^4.14.0",
     "jsonwebtoken": "^7.1.9",
