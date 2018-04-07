@@ -32,6 +32,10 @@
         import routesUsers from './routes/users';
         app.use('/api/users', routesUsers);
 
+    // Leave
+        import routesLeave from './routes/leave';
+        app.use('/api/tweets', routesLeave);
+
     // Auth
         import routesAuth from './routes/auth';
         app.use('/api/auth', routesAuth);

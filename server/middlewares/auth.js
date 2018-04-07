@@ -1,6 +1,7 @@
 // Server / Middlewares / Auth
 
 import jwt from 'jsonwebtoken';
+import jwtDecode from 'jwt-decode';
 
 import serverConfig from '../configs/server';
 
@@ -15,6 +16,9 @@ export default (request, response, next) => {
             if(error) {
                 response.status(403).json({ errors: 'Authentication failed. Token is invalid.' });
             } else {
+                request.currentUser = jwtDecode(token);
+                console.log(request.currentUser)
+                console.log('11111111111111111111111111111111111')
                 next();
             }
         });

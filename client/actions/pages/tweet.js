@@ -4,13 +4,13 @@ import axios from 'axios';
 
 export function tweetRequest(tweet) {
     return dispatch => {
-        return axios.post('/api/tweets', tweet);
+        return axios.post('/api/tweets/addLeaveRequest', tweet);
     }
 }
 
 export function tweetGetRequest(page) {
     return dispatch => {
-        return axios.get(`/api/tweets/${ page }`);
+        return axios.get(`/api/tweets/getLeaveRequest`);
     }
 }
 
