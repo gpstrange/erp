@@ -16,16 +16,11 @@ let routesAuth = express.Router();
 routesAuth.post('/', (request, response) => {
     let responseData = {
         success: false,
-
         token: '',
-
         errors: {}
     };
-
     console.log(request.body);
-
     const { username, password } = request.body;
-
     connection.query(
         "SELECT * FROM users WHERE username = ?",
         [username],
@@ -34,23 +29,21 @@ routesAuth.post('/', (request, response) => {
                 if(bcrypt.compareSync(password, rows[0].password)) {
                     responseData.token = jwt.sign({
                         id: rows[0].id,
-                        username: rows[0].username
+                        username: rows[0].username,
+                        name: rows[0].name,
+                        dept: rows[0].dept,
+                        phone: rows[0].phone
                     }, serverConfig.secret);
-
                     console.log(responseData.token);
-
                     responseData.success = true;
                 } else {
                     response.status(401);
-
                     responseData.errors.form = 'The password you entered is invalid.';
                 }
             } else {
                 response.status(401);
-
                 responseData.errors.form = 'User with such username does not exists.';
             }
-
             return response.json(responseData);
         });
 });
