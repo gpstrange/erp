@@ -8,6 +8,7 @@ import Auth from './components/common/auth';
 import HomePage from './components/pages/home';
 import TweetPage from './components/pages/tweet';
 import UserLogin from './components/user/login';
+import staffLogin from './components/staff/login';
 import UserRegister from './components/user/register';
 import UserProfile from './components/user/profile';
 
@@ -17,6 +18,7 @@ export default (
         <Route path="leaveForm" component={ Auth(TweetPage) } />
         <Route path="login" component={ UserLogin } />
         <Route path="register" component={ UserRegister } />
+        <Route path="staffLogin" component={staffLogin} />
         <Route path="profile/:username(/:page)" component={ UserProfile } />
         <Route path="(:page)" component={ HomePage } />
     </Route>

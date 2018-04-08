@@ -40,6 +40,10 @@
         import routesAuth from './routes/auth';
         app.use('/api/auth', routesAuth);
 
+    //Staff Auth
+    import routesAuth from './routes/auth';
+    app.use('/api/staff/auth', routesStaff);
+
 app.get('/*', (request, response) => {
         response.sendFile(path.join(__dirname, './index.html'))
     });
