@@ -29,7 +29,8 @@ export default {
                     path.join(__dirname, '../../shared'),
                 ],
                 loaders: [ 'react-hot', 'babel' ]
-            }
+            },
+            { test: /\.less$/, loader: 'style-loader!css-loader!less-loader' }
         ]
     },
 

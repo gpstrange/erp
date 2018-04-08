@@ -2,20 +2,30 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import '../common/css/less/input-moment.less';
+import '../common/css/app.less';
 
 import { validateTweet } from '../../../shared/validations/tweets';
 import { tweetRequest } from '../../actions/pages/tweet';
 import { flashMessageAdd } from '../../actions/flash-messages';
 import InputTextarea from '../common/inputs/textarea';
+import Text from '../common/inputs/text';
+import InputMoment from "input-moment";
+import moment from 'moment';
+
 
 class TweetPage extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            parentMobile: '',
             tweet: '',
             errors: {},
-            isLoading: false
+            m1: moment(),
+            m2: moment(),
+            isLoading: false,
+            moment: Date.now()
         };
     }
 
@@ -24,61 +34,88 @@ class TweetPage extends React.Component {
             [event.target.name]: event.target.value
         });
     }
-
     isValid() {
         const { errors, isValid } = validateTweet(this.state);
-
         if(!isValid) {
             this.setState({ errors });
         }
-
         return isValid;
     }
-
     onSubmit(event) {
         event.preventDefault();
-
         if(this.isValid()) {
             this.setState({errors: {}, isLoading: true});
-
             this.props.tweetRequest(this.state).then(
                 (response) => {
                     console.log(response);
-
                     this.props.flashMessageAdd({
                         type: 'success',
                         text: 'Tweet sent!'
                     });
-
                     this.setState({isLoading: false, tweet: ''});
-
                     this.context.router.push('/');
                 },
-
                 (error) => {
                     console.log(error.response.data);
-
                     this.setState({errors: error.response.data.errors, isLoading: false});
                 }
             );
         }
     }
+    handleChange(m){
+        this.setState({ m1: m });
+    };
+    handleChange2(m) {
+        this.setState({ m2: m });
+    };
+    handleSave() {
+        console.log('saved', this.state.m1.format('llll'));
+    };
 
     render() {
         return (
             <section>
                 <h2>Tweet to the world</h2>
-
                 <form onSubmit={ this.onSubmit.bind(this) }>
+                    <Text 
+                        type="text"
+                        value={this.state.parentMobile}
+                        onChange={this.onChange.bind(this)}
+                        name="parentMobile"
+                        id="user-parentMobile"
+                        label="ParentMobile"
+                        placeholder="Enter mobile Number"
+                    />
                     <InputTextarea
                         error={ this.state.errors.tweet }
                         value={ this.state.tweet }
                         onChange={ this.onChange.bind(this) }
-                        name="tweet"
-                        id="tweet"
-                        label="Tweet"
-                        placeholder="What's on your mind?"
+                        name="reason"
+                        id="treason"
+                        label="Reason"
+                        placeholder="Enter the reason"
                         rows="3"
+                    />
+                    <Text type="text" id="m1" label="From" value={this.state.m1.format('llll')} readOnly />
+                    <InputMoment
+                        moment={this.state.m1}
+                        onChange={this.handleChange.bind(this)}
+                        onSave={this.handleSave.bind(this)}
+                        name = "m1"
+                        minStep={1} // default
+                        hourStep={1} // default
+                        prevMonthIcon="ion-ios-arrow-left" // default
+                        nextMonthIcon="ion-ios-arrow-right" // default
+                    />
+                    <Text type="text" id="m2" label="To" value={this.state.m2.format('llll')} readOnly />
+                    <InputMoment
+                        moment={this.state.m2}
+                        onChange={this.handleChange2.bind(this)}
+                        onSave={this.handleSave.bind(this)}
+                        minStep={1} // default
+                        hourStep={1} // default
+                        prevMonthIcon="ion-ios-arrow-left" // default
+                        nextMonthIcon="ion-ios-arrow-right" // default
                     />
 
                     <button type="submit" disabled={ this.state.isLoading } className="btn btn-default">Submit</button>

@@ -28,37 +28,28 @@ class UserLogin extends React.Component {
 
     isValid() {
         const { errors, isValid } = validateUserLogin(this.state);
-
         if(!isValid) {
             this.setState({ errors });
         }
-
         return isValid;
     }
 
     onSubmit(event) {
         event.preventDefault();
-
         if(this.isValid()) {
             this.setState({errors: {}, isLoading: true});
-
             this.props.userLoginRequest(this.state).then(
                 (response) => {
                     console.log(response);
-
                     this.props.flashMessageAdd({
                         type: 'success',
                         text: 'You have logged in successfully.'
                     });
-
                     this.setState({ isLoading: false });
-
                     this.context.router.push('/tweet');
                 },
-
                 (error) => {
                     console.log(error.response.data);
-
                     this.setState({ errors: error.response.data.errors, isLoading: false });
                 }
             );
@@ -69,11 +60,8 @@ class UserLogin extends React.Component {
         return (
             <section>
                 <h2>Login</h2>
-
                 { this.state.errors.form && <div className="alert alert-danger">{ this.state.errors.form }</div> }
-
                 <form onSubmit={ this.onSubmit.bind(this) }>
-
                     <InputText
                         error={ this.state.errors.username }
                         type="text"
@@ -84,7 +72,6 @@ class UserLogin extends React.Component {
                         label="Username"
                         placeholder="Eg: jonsnow"
                     />
-
                     <InputText
                         error={ this.state.errors.password }
                         type="password"

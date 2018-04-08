@@ -14,24 +14,22 @@ connection.query("USE " + dbconfig.database);
  * Accepts: String username, String password
  * Returns: Promise
  */
-export function createTweet(userId, data, cb) {
+export function createTweet(user, data, cb) {
     console.log(data)
     if(!isEmpty(data) && !isEmpty(data)) {
         var insertQuery =
-            "INSERT INTO leaveReason ( username, name, dept, phone, createdAt, reason, parentMobile, fromDate, toDate, fromTime, toTime ) values (?,?,?,?,?,?,?,?,?)";
+            "INSERT INTO leaveRequests ( username, name, dept, phone, createdAt, reason, parentMobile, fromDate, toDate ) values (?,?,?,?,?,?,?)";
         connection.query(
             insertQuery,[
-                data.username,
-                data.name,
-                data.dept,
-                data.phone,
+                user.username,
+                user.name,
+                user.dept,
+                user.phone,
                 new Date(Date.now()),
                 data.reason,
                 data.parentMobile,
                 data.fromDate,
-                data.toDate,
-                data.fromTime,
-                data.toTime
+                data.toDate
             ],
             function (err, rows) {
                 if (err) return cb(err);
@@ -47,28 +45,13 @@ export function createTweet(userId, data, cb) {
  * Get list of all tweets
  * Returns: Promise
  */
-// export function getAllTweets() {
-//     const pagingLimit = sharedConfig.pagination;
-
-//     console.log(pagingLimit);
-
-//     return Tweet.query((qb) => {
-//         qb.orderBy('created_at','DESC');
-
-//         qb.limit(pagingLimit);
-
-//         qb.offset((page - 1) * pagingLimit);
-//     })
-//         .fetchAll({
-//             withRelated: [
-//                 {
-//                     'user': function(qb) {
-//                         qb.column('id', 'username');
-//                     }
-//                 }
-//             ]
-//         });
-// }
+export function getAllTweets(cb) {
+    connection.query(`SELECT * from leaveRequests ORDER BY createdAt DESC`, (err, rows)=>{
+        if (err) return cb(err);
+        console.log(rows);
+        return cb(null, rows);
+    })
+}
 
 /*
  * Get list of all tweets
