@@ -39,7 +39,7 @@ export function createUser(newUserMysql, cb) {
     // Encrypt password
     const passwordEncrypted = bcrypt.hashSync(newUserMysql.password, serverConfig.saltRounds);
     var insertQuery =
-        "INSERT INTO users ( username, password, address, name, email, dept, dob, phone, community, bloodGroup, aadharNumber ) values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        "INSERT INTO users ( username, password, address, name, email, dept, dob, phone, community, bloodGroup, aadharNumber, createdAt ) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
     connection.query(
         insertQuery,
         [
@@ -54,7 +54,8 @@ export function createUser(newUserMysql, cb) {
             // new Date().toJSON().slice(0, 10) + req.file.originalname,
             newUserMysql.community,
             newUserMysql.bloodGroup,
-            newUserMysql.aadharNumber
+            newUserMysql.aadharNumber,
+            new Date(Date.now())
         ],
         function (err, rows) {
             if (err) return cb(err);
