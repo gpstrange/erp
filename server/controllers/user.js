@@ -9,11 +9,6 @@ connection.query("USE " + dbconfig.database);
 
 import serverConfig from '../configs/server';
 
-/*
- * Check if username already exists in 'users' table
- * Accepts: Object { username }
- * Returns: Promise
- */
 export function checkUsernameAlreadyExists(data, cb) {
     let errors = {};
     connection.query(
@@ -30,16 +25,11 @@ export function checkUsernameAlreadyExists(data, cb) {
     )
 }
 
-/*
- * Create a new user record in 'users' table
- * Accepts: String username, String password
- * Returns: Promise
- */
 export function createUser(newUserMysql, cb) {
     // Encrypt password
     const passwordEncrypted = bcrypt.hashSync(newUserMysql.password, serverConfig.saltRounds);
     var insertQuery =
-        "INSERT INTO users ( username, password, address, name, email, dept, dob, phone, community, bloodGroup, aadharNumber, createdAt ) values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        "INSERT INTO users ( username, password, address, name, email, dept, dob, phone, community, bloodGroup, aadharNumber, role, class ) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
     connection.query(
         insertQuery,
         [
@@ -55,7 +45,8 @@ export function createUser(newUserMysql, cb) {
             newUserMysql.community,
             newUserMysql.bloodGroup,
             newUserMysql.aadharNumber,
-            new Date(Date.now())
+            newUserMysql.role,
+            newUserMysql.class
         ],
         function (err, rows) {
             if (err) return cb(err);
