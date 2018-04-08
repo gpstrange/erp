@@ -34,13 +34,15 @@ class Header extends React.Component {
                 <Link to="/login">Login</Link>
                 &nbsp; &bull; &nbsp;
                 <Link to="/register">Register</Link>
+                &nbsp; &bull; &nbsp;
+                <Link to="/staffLogin">StaffLogin</Link>
             </span>
         );
 
         return (
             <header>
-                <h1>Any Institute</h1>
-                <Link to="/">Home</Link>
+                <h1>KIT</h1>
+                <Link to="/home">Home</Link>
                 { isAuthenticated ? userLinks : guestLinks }
             </header>
         );

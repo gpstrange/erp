@@ -7,7 +7,7 @@ class Footer extends React.Component {
     render() {
         return (
             <footer>
-                &copy; 2016 <Link to="/">Zwitter</Link>
+                &copy; 2018 <Link to="/">Powered by NCDRC - KIT</Link>
             </footer>
         );
     }

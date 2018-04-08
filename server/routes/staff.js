@@ -95,4 +95,4 @@ routesStaff.post('/', (request, response) => {
     });
 });
 
-export default routesAuth;
+export default routesStaff;

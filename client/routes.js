@@ -14,12 +14,13 @@ import UserProfile from './components/user/profile';
 
 export default (
     <Route path="/" component={ App }>
-        <IndexRoute component={ HomePage } />
+        <IndexRoute component={ UserLogin } />
         <Route path="leaveForm" component={ Auth(TweetPage) } />
         <Route path="login" component={ UserLogin } />
         <Route path="register" component={ UserRegister } />
         <Route path="staffLogin" component={staffLogin} />
         <Route path="profile/:username(/:page)" component={ UserProfile } />
-        <Route path="(:page)" component={ HomePage } />
+        <Route path="home" component={ HomePage } />
+        <Route path="staff" component={HomePage} />
     </Route>
 )

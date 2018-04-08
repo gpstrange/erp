@@ -4,11 +4,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { validateUserLogin } from '../../../shared/validations/user/login';
-import { userLoginRequest } from '../../actions/user/login';
+import { staffLoginRequest } from '../../actions/staff/login';
 import { flashMessageAdd } from '../../actions/flash-messages';
 import InputText from '../common/inputs/text';
 
-class UserLogin extends React.Component {
+class StaffLogin extends React.Component {
     constructor(props) {
         super(props);
 
@@ -38,7 +38,7 @@ class UserLogin extends React.Component {
         event.preventDefault();
         if(this.isValid()) {
             this.setState({errors: {}, isLoading: true});
-            this.props.userLoginRequest(this.state).then(
+            this.props.staffLoginRequest(this.state).then(
                 (response) => {
                     console.log(response);
                     this.props.flashMessageAdd({
@@ -46,7 +46,7 @@ class UserLogin extends React.Component {
                         text: 'You have logged in successfully.'
                     });
                     this.setState({ isLoading: false });
-                    this.context.router.push('/home');
+                    this.context.router.push('/staff');
                 },
                 (error) => {
                     console.log(error.response.data);
@@ -90,13 +90,13 @@ class UserLogin extends React.Component {
     }
 }
 
-UserLogin.propTypes = {
-    userLoginRequest: React.PropTypes.func.isRequired,
+StaffLogin.propTypes = {
+    staffLoginRequest: React.PropTypes.func.isRequired,
     flashMessageAdd: React.PropTypes.func.isRequired
 };
 
-UserLogin.contextTypes = {
+StaffLogin.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default connect((state) => { return {} }, { userLoginRequest, flashMessageAdd })(UserLogin);
+export default connect((state) => { return {} }, { staffLoginRequest, flashMessageAdd })(StaffLogin);
