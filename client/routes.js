@@ -14,7 +14,7 @@ import UserProfile from './components/user/profile';
 export default (
     <Route path="/" component={ App }>
         <IndexRoute component={ HomePage } />
-        <Route path="tweet" component={ Auth(TweetPage) } />
+        <Route path="leaveForm" component={ Auth(TweetPage) } />
         <Route path="login" component={ UserLogin } />
         <Route path="register" component={ UserRegister } />
         <Route path="profile/:username(/:page)" component={ UserProfile } />

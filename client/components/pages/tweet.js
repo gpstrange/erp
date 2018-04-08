@@ -34,16 +34,16 @@ class TweetPage extends React.Component {
             [event.target.name]: event.target.value
         });
     }
-    isValid() {
-        const { errors, isValid } = validateTweet(this.state);
-        if(!isValid) {
-            this.setState({ errors });
-        }
-        return isValid;
-    }
+    // isValid() {
+    //     const { errors, isValid } = validateTweet(this.state.reason);
+    //     if(!isValid) {
+    //         this.setState({ errors });
+    //     }
+    //     return isValid;
+    // }
     onSubmit(event) {
         event.preventDefault();
-        if(this.isValid()) {
+        if(true) {
             this.setState({errors: {}, isLoading: true});
             this.props.tweetRequest(this.state).then(
                 (response) => {
@@ -56,6 +56,7 @@ class TweetPage extends React.Component {
                     this.context.router.push('/');
                 },
                 (error) => {
+                    console.log(11111111111111111111111)
                     console.log(error.response.data);
                     this.setState({errors: error.response.data.errors, isLoading: false});
                 }
@@ -75,7 +76,7 @@ class TweetPage extends React.Component {
     render() {
         return (
             <section>
-                <h2>Tweet to the world</h2>
+                <h2>Leave form</h2>
                 <form onSubmit={ this.onSubmit.bind(this) }>
                     <Text 
                         type="text"

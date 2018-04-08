@@ -22,7 +22,7 @@ class Header extends React.Component {
         const userLinks = (
             <span>
                 &nbsp; &bull; &nbsp;
-                <Link to="/tweet">tweet</Link>
+                <Link to="/leaveForm">Leave form</Link>
                 &nbsp; &bull; &nbsp;
                 <a href="#" onClick={ this.logout.bind(this) }>Logout</a>
             </span>

@@ -18,21 +18,21 @@ export function createTweet(user, data, cb) {
     console.log(data)
     if(!isEmpty(data) && !isEmpty(data)) {
         var insertQuery =
-            "INSERT INTO leaveRequests ( username, name, dept, phone, createdAt, reason, parentMobile, fromDate, toDate ) values (?,?,?,?,?,?,?)";
+            "INSERT INTO leaveRequests ( username, name, dept, phone, reason, parentMobile, fromDate, toDate ) values (?,?,?,?,?,?,?,?)";
         connection.query(
             insertQuery,[
                 user.username,
                 user.name,
                 user.dept,
                 user.phone,
-                new Date(Date.now()),
                 data.reason,
                 data.parentMobile,
-                data.fromDate,
-                data.toDate
+                new Date(data.m1),
+                new Date(data.m2)
             ],
             function (err, rows) {
                 if (err) return cb(err);
+                console.log("DB done")
                 console.log(rows);
                 return cb(null, rows);
             }    
@@ -46,6 +46,7 @@ export function createTweet(user, data, cb) {
  * Returns: Promise
  */
 export function getAllTweets(cb) {
+    console.log("get funstion")
     connection.query(`SELECT * from leaveRequests ORDER BY createdAt DESC`, (err, rows)=>{
         if (err) return cb(err);
         console.log(rows);

@@ -5,14 +5,14 @@ import isEmpty from 'lodash/isEmpty';
 
 export function validateTweet(data) {
     let errors = {};
-
-    if(Validator.isNull(data.tweet)) {
+    console.log(data)
+    if(Validator.isNull(data)) {
         errors.tweet = 'Tweet cannot be empty.';
-    } else if(!Validator.isLength(data.tweet, {min: 10})) {
-        errors.tweet = 'Tweet should be atleast 10 characters long.';
-    } else if(!Validator.isLength(data.tweet, {max: 160})) {
+    } else if(!Validator.isLength(data, {min: 10})) {
+        errors.tweet = 'Reason should be atleast 10 characters long.';
+    } else if(!Validator.isLength(data, {max: 160})) {
         errors.tweet = 'Tweet should be less than 160 characters long.';
-    }
+    } 
 
     return {
         errors,

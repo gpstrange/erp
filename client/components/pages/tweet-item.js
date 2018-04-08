@@ -6,20 +6,20 @@ import moment from 'moment';
 
 class TweetItem extends React.Component {
     render() {
-        const  { id, tweet, user, created_at } = this.props.tweet;
-
+        const  { id, reason, username, name, createdAt, parentMobile, fromDate, toDate  } = this.props.leaveRequest;
+        console.log(reason)
         return (
             <div className="panel panel-default">
                 <div className="panel-body">
-                    { tweet }
+                    &bull; <strong style={{fontSize:17}}>{ name }</strong> : { reason }<br />
+                    &bull; Parent Mobile : {parentMobile}<br />
+                    &bull; Duration : {fromDate.replace('T',' (').split('.')[0]}) - {toDate.replace('T', ' (').split('.')[0]})<br />
                 </div>
-
                 <div className="panel-footer">
                     {
-                        (user && user.username) ? <span><Link to={`/profile/${ user.username }`}>{ user.username }</Link> &bull; </span> : ''
+                        (username) ? <span><Link to={`/profile/${ username }`}>{ username }</Link> &bull; </span> : ''
                     }
-
-                    { moment(created_at).fromNow() }
+                    { moment(createdAt).fromNow() }
                 </div>
             </div>
         );

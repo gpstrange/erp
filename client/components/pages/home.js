@@ -14,9 +14,9 @@ class HomePage extends React.Component {
         super(props);
 
         this.state = {
-            tweets: [],
-            tweetCount: 0,
-            noTweets: false,
+            leaveRequests: [],
+            leaveRequestCount: 0,
+            noLeaveRequests: false,
             errors: {},
             isLoading: false,
             page: ((this.props.params.page) ? parseInt(this.props.params.page) : 1)
@@ -35,48 +35,38 @@ class HomePage extends React.Component {
 
     getTweets() {
         this.setState({ errors: {}, isLoading: true });
-
         this.props.tweetGetRequest(this.state.page).then(
             (response) => {
                 console.log(response);
-
                 this.setState({ isLoading: false });
-
-                if(!isEmpty(response.data.tweets)) {
-                    this.setState({ tweets: response.data.tweets, tweetCount: response.data.tweetCount });
+                if(!isEmpty(response.data.leaveRequests)) {
+                    this.setState({ leaveRequests: response.data.leaveRequests, leaveRequestCount: response.data.leaveRequestCount });
                 } else {
-                    this.setState({ noTweets: true });
+                    this.setState({ noLeaveRequests: true });
                 }
             },
-
             (error) => {
                 console.log(error.response.data);
-
                 this.setState({ errors: error.response.data.errors, isLoading: false });
             }
         );
     }
 
     render() {
-        const tweets = this.state.tweets.map((tweet) => {
-            return <TweetItem key={ tweet.id } tweet={ tweet } />
+        const leaveRequests = this.state.leaveRequests.map((leaveRequest) => {
+            return <TweetItem key={ leaveRequest.id } leaveRequest={ leaveRequest } />
         });
-
         const pleaseWaitMessage = <p>Please wait...</p>;
-
-        const noTweetsMessage = <p>Strange. No one has tweeted yet. <Link to="/tweet">Tweet now</Link></p>;
-
+        const noTweetsMessage = <p>Strange. No requests yet. 
+            {/* <Link to="/tweet">Tweet now</Link> */}
+            </p>;
         return (
             <section>
-                <h2>Tweets from all around the world</h2>
-
-                { this.state.isLoading ? pleaseWaitMessage : tweets }
-
+                <h2>All leave requests</h2>
+                { this.state.isLoading ? pleaseWaitMessage : leaveRequests }
                 { this.state.noTweets ? noTweetsMessage : '' }
-
                 <hr/>
-
-                <Pagination current={ this.state.page } count={ this.state.tweetCount }/>
+                {/* <Pagination current={ this.state.page } count={ this.state.tweetCount }/> */}
             </section>
         );
     }
