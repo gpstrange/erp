@@ -18,12 +18,12 @@ routesTweets.post('/addLeaveRequest', middlewareAuthenticate, (request, response
     };
     console.log(request.body);
     let token = request.headers['authorization'].split(' ')[1];
-    request.currentUser = jwtDecode(token);
-    // console.log(request.currentUser)
+    let currentUser = jwtDecode(token);
+    console.log(currentUser)
     let { errors, isValid } = validateTweet(request.body);
     if (isValid) {
         const { leaveData } = request.body;
-        createTweet(request.currentUser.id, leaveData, (err, data)=>{
+        createTweet(currentUser, leaveData, (err, data)=>{
             if(err) {
                 response.status(500);
                 responseData.errors = err;

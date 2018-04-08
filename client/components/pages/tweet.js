@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import '../common/css/less/input-moment.less';
-import '../common/css/app.less';
+// import '../common/css/app.less';
 
 import { validateTweet } from '../../../shared/validations/tweets';
 import { tweetRequest } from '../../actions/pages/tweet';
@@ -20,7 +20,7 @@ class TweetPage extends React.Component {
 
         this.state = {
             parentMobile: '',
-            tweet: '',
+            reason: '',
             errors: {},
             m1: moment(),
             m2: moment(),
@@ -88,36 +88,41 @@ class TweetPage extends React.Component {
                     />
                     <InputTextarea
                         error={ this.state.errors.tweet }
-                        value={ this.state.tweet }
+                        value={ this.state.reason }
                         onChange={ this.onChange.bind(this) }
                         name="reason"
-                        id="treason"
+                        id="reason"
                         label="Reason"
                         placeholder="Enter the reason"
                         rows="3"
                     />
-                    <Text type="text" id="m1" label="From" value={this.state.m1.format('llll')} readOnly />
-                    <InputMoment
-                        moment={this.state.m1}
-                        onChange={this.handleChange.bind(this)}
-                        onSave={this.handleSave.bind(this)}
-                        name = "m1"
-                        minStep={1} // default
-                        hourStep={1} // default
-                        prevMonthIcon="ion-ios-arrow-left" // default
-                        nextMonthIcon="ion-ios-arrow-right" // default
-                    />
-                    <Text type="text" id="m2" label="To" value={this.state.m2.format('llll')} readOnly />
-                    <InputMoment
-                        moment={this.state.m2}
-                        onChange={this.handleChange2.bind(this)}
-                        onSave={this.handleSave.bind(this)}
-                        minStep={1} // default
-                        hourStep={1} // default
-                        prevMonthIcon="ion-ios-arrow-left" // default
-                        nextMonthIcon="ion-ios-arrow-right" // default
-                    />
-
+                    <div className="row">
+                    <div className="col-md-6">
+                        <Text type="text" id="m1" label="From" value={this.state.m1.format('llll')} readOnly />
+                        <InputMoment
+                            moment={this.state.m1}
+                            onChange={this.handleChange.bind(this)}
+                            onSave={this.handleSave.bind(this)}
+                            name = "m1"
+                            minStep={1} // default
+                            hourStep={1} // default
+                            prevMonthIcon="ion-ios-arrow-left" // default
+                            nextMonthIcon="ion-ios-arrow-right" // default
+                        />
+                        </div>
+                        <div className="col-md-6">
+                        <Text type="text" id="m2" label="To" value={this.state.m2.format('llll')} readOnly />
+                        <InputMoment
+                            moment={this.state.m2}
+                            onChange={this.handleChange2.bind(this)}
+                            onSave={this.handleSave.bind(this)}
+                            minStep={1} // default
+                            hourStep={1} // default
+                            prevMonthIcon="ion-ios-arrow-left" // default
+                            nextMonthIcon="ion-ios-arrow-right" // default
+                        />
+                        </div>
+                    </div>
                     <button type="submit" disabled={ this.state.isLoading } className="btn btn-default">Submit</button>
                 </form>
             </section>
