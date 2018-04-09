@@ -5,6 +5,29 @@ SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP TABLE IF EXISTS `leaveRequests`;
+CREATE TABLE `leaveRequests` (
+  `username` varchar(255) NOT NULL,
+  `phone` bigint(20) NOT NULL,
+  `dept` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `advisorName` varchar(60) NOT NULL,
+  `reason` varchar(255) NOT NULL,
+  `parentMobile` bigint(20) NOT NULL,
+  `fromDate` date NOT NULL,
+  `toDate` date NOT NULL,
+  `wardenPermission` tinyint(4) NOT NULL,
+  `advisorPermission` tinyint(4) NOT NULL,
+  `hodPermission` tinyint(4) NOT NULL,
+  `principalPermission` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `leaveRequests` (`username`, `phone`, `dept`, `name`, `class`, `createdAt`, `advisorName`, `reason`, `parentMobile`, `fromDate`, `toDate`, `wardenPermission`, `advisorPermission`, `hodPermission`, `principalPermission`) VALUES
+('711516106037',	9090738889,	'MCA',	'Guru',	'2ECEA',	'2018-04-08 09:55:06',	'yogeshwaran',	'akjdakjsdkjjjk',	858888888,	'2018-04-08',	'2018-04-08',	0,	0,	0,	0),
+('711516106037',	9090738889,	'MCA',	'Guru',	'2ECEB',	'2018-04-08 09:55:06',	'yogeshwaran',	'qweqweqweqweqwe',	858888888,	'2018-04-08',	'2018-04-08',	0,	0,	0,	0);
+
 DROP TABLE IF EXISTS `marks`;
 CREATE TABLE `marks` (
   `sub1_name` varchar(60) NOT NULL,
@@ -49,16 +72,19 @@ CREATE TABLE `staffs` (
   `address` varchar(255) NOT NULL,
   `bloodGroup` varchar(20) NOT NULL,
   `community` varchar(20) NOT NULL,
-  `role` tinyint(1) NOT NULL DEFAULT '1',
+  `role` varchar(60) NOT NULL DEFAULT '1',
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `class` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `staffs` (`name`, `id`, `username`, `password`, `email`, `dept`, `phone`, `aadharNumber`, `pic`, `dob`, `address`, `bloodGroup`, `community`, `role`) VALUES
-('rtyr',	1,	'123',	'$2a$10$VLKkYoIPBzmNUKLnX/6jYeDrl.wnr.UEdMf0iMQFxmTH0.8Bi2at2',	'prasadguru141@gmail.com',	'MECH',	9597983840,	123456123456,	'ic_launcher.png',	'2018-01-13',	'qwertyui',	'b+',	'MBC',	1);
+INSERT INTO `staffs` (`name`, `id`, `username`, `password`, `email`, `dept`, `phone`, `aadharNumber`, `pic`, `dob`, `address`, `bloodGroup`, `community`, `role`, `createdAt`, `class`) VALUES
+('rtyr',	1,	'1234567',	'$2a$10$VLKkYoIPBzmNUKLnX/6jYeDrl.wnr.UEdMf0iMQFxmTH0.8Bi2at2',	'prasadguru141@gmail.com',	'MECH',	9597983840,	123456123456,	'ic_launcher.png',	'2018-01-13',	'qwertyui',	'b+',	'MBC',	'1',	'2018-04-08 14:32:11',	'2ECEA');
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
+  `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `name` varchar(255) NOT NULL,
   `id` int(20) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
@@ -72,16 +98,16 @@ CREATE TABLE `users` (
   `address` varchar(255) NOT NULL,
   `bloodGroup` varchar(60) NOT NULL,
   `community` varchar(60) NOT NULL,
+  `accomodation` varchar(60) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `users` (`name`, `id`, `username`, `password`, `email`, `dept`, `phone`, `aadharNumber`, `pic`, `dob`, `address`, `bloodGroup`, `community`) VALUES
-('Guru prasad G',	1,	'123',	'$2a$10$VRfZBITnc5GKHc79gmy.OuP0gE7LweRWcT9b.IOejlsCFOHb4mlma',	'prasadguru141@gmail.com',	'ECE',	9898989,	123456789,	'2018-01-14drawable-land-ldpi-screen.png',	'2018-01-17',	'qwerQWERTYUIASDFGH',	'b+',	'OC'),
-('Guru',	2,	'1234',	'$2a$10$kc6YyCsGKC90uagy6Rr80.OmUg5pLiGxH7tEAt9xFJSDHZ1sk.Xpq',	'janani26599@gmail.com',	'S&H',	9898989898,	234567890345,	'14drawable-port-xxxhdpi-screen.png',	'2018-01-11',	'njascahscdiashcdiuashcihsiuchiuashciuhasiuchiashciuashciuhaishchSO*FTomnfc0nq389q3yrn8y',	'O+',	'BCM'),
-('Guru',	3,	'711516106037',	'$2a$10$EX47GncSyvj3AI9kpdnZn.LJKUSFQWjieXclbG5yCxeN/bES9xICe',	'gutu@nma.com',	'MCA',	9090738889,	316289,	'2018-03-17lastIssue.png',	'2018-03-15',	'7heafdasodjj',	'G9*',	'BCM'),
-('leevern',	4,	'1233',	'$2a$10$tFODlP8IqaF.tLXlAJLlQeILBvKBmkyf8zzuazf9QgwPYwS0ksyi.',	'we@bom.dfh',	'AGRI',	9485949,	7987329,	'2018-03-17[.png',	'2018-03-16',	'adasdad',	'b+',	'BC');
+INSERT INTO `users` (`createdAt`, `name`, `id`, `username`, `password`, `email`, `dept`, `phone`, `aadharNumber`, `pic`, `dob`, `address`, `bloodGroup`, `community`, `accomodation`) VALUES
+('2018-04-07 18:30:00',	'Guru prasad G',	1,	'123',	'$2a$10$VRfZBITnc5GKHc79gmy.OuP0gE7LweRWcT9b.IOejlsCFOHb4mlma',	'prasadguru141@gmail.com',	'ECE',	9898989,	123456789,	'2018-01-14drawable-land-ldpi-screen.png',	'2018-01-17',	'qwerQWERTYUIASDFGH',	'b+',	'OC',	'hosteller'),
+('2018-04-07 18:30:00',	'Guru',	2,	'1234',	'$2a$10$kc6YyCsGKC90uagy6Rr80.OmUg5pLiGxH7tEAt9xFJSDHZ1sk.Xpq',	'janani26599@gmail.com',	'S&H',	9898989898,	234567890345,	'14drawable-port-xxxhdpi-screen.png',	'2018-01-11',	'njascahscdiashcdiuashcihsiuchiuashciuhasiuchiashciuashciuhaishchSO*FTomnfc0nq389q3yrn8y',	'O+',	'BCM',	'hosteller'),
+('2018-04-07 18:30:00',	'Guru',	3,	'711516106037',	'$2a$10$EX47GncSyvj3AI9kpdnZn.LJKUSFQWjieXclbG5yCxeN/bES9xICe',	'gutu@nma.com',	'MCA',	9090738889,	316289,	'2018-03-17lastIssue.png',	'2018-03-15',	'7heafdasodjj',	'G9*',	'BCM',	'hosteller'),
+('2018-04-07 18:30:00',	'leevern',	4,	'1233',	'$2a$10$tFODlP8IqaF.tLXlAJLlQeILBvKBmkyf8zzuazf9QgwPYwS0ksyi.',	'we@bom.dfh',	'AGRI',	9485949,	7987329,	'2018-03-17[.png',	'2018-03-16',	'adasdad',	'b+',	'BC',	'hosteller');
 
--- 2018-04-07 02:49:39
-
+-- 2018-04-09 15:22:18
