@@ -66,6 +66,31 @@ export function createUser(newUserMysql, cb) {
     );
 }
 
+export function addEventHandler(user, data, cb){
+    console.log(data)
+    var insertQuery =
+        "INSERT INTO college_events ( name, description, fromDate, toDate, createdBy ) values (?,?,?,?,?)";
+    connection.query(
+        insertQuery,
+        [
+            data.eventName,
+            data.description,
+            new Date(data.m1),
+            new Date(data.m2),
+            user.id
+        ],
+        function (err, rows) {
+            if (err) {
+                console.log(err)
+                return cb(err)
+            };
+            console.log(rows);
+
+            return cb(null, rows);
+        }
+    ); 
+}
+
 
 /*
  * Get user's all tweets

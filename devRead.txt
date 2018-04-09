@@ -1,0 +1,6 @@
+staff:
+    - role - dropdown
+      example: 'principal','advisor','tutor','warden','professor'
+
+    - class - dropdown - class handling (can be null for principal warden hod's)
+    - type - dropdown - professor, hod, principal, warden, teaching, non-teaching

@@ -3,20 +3,22 @@
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import isEmpty from 'lodash/isEmpty';
+import jwtDecode from 'jwt-decode';
 
 var mysql = require("mysql");
 var dbconfig = require("../configs/database");
 var connection = mysql.createConnection(dbconfig.connection);
 connection.query("USE " + dbconfig.database);
 
-import { checkUsernameAlreadyExists, createUser } from '../controllers/staff';
+import { checkUsernameAlreadyExists, createUser, addEventHandler } from '../controllers/staff';
 import { validateUserRegister } from '../../shared/validations/user/register';
 
 import serverConfig from '../configs/server';
 
 let routesStaff = express.Router();
 
-routesStaff.post('/', (request, response) => {
+routesStaff.post('/auth', (request, response) => {
     let responseData = {
         success: false,
         token: '',
@@ -32,6 +34,7 @@ routesStaff.post('/', (request, response) => {
                 if (bcrypt.compareSync(password, rows[0].password)) {
                     responseData.token = jwt.sign({
                         id: rows[0].id,
+                        type: 'staff',
                         username: rows[0].username,
                         name: rows[0].name,
                         dept: rows[0].dept,
@@ -52,7 +55,7 @@ routesStaff.post('/', (request, response) => {
         });
 });
 
-routesStaff.post('/', (request, response) => {
+routesStaff.post('/signUp', (request, response) => {
     let responseData = {
         success: false,
         errors: {}
@@ -95,5 +98,36 @@ routesStaff.post('/', (request, response) => {
         }
     });
 });
+
+routesStaff.post('/addEvent', (request, response)=>{
+    let responseData = {
+        success: false,
+        errors: {}
+    };
+    let token = request.headers['authorization'].split(' ')[1];
+    let currentUser = jwtDecode(token);
+    console.log(currentUser)
+    if(currentUser.type === 'staff' && !isEmpty(request.body)){
+        console.log("Hereeeeeeeeeeeeeeeeeee/.....................")
+        addEventHandler(currentUser, request.body, (err, result)=>{
+            if (err) {
+                response.status(500);
+                responseData.success = false;
+                responseData.errors.form = "Event Creation failed";
+                response.json(responseData);
+            } else {
+                responseData = result;
+                responseData.success = true;
+                response.status(201); // created status
+                response.json(responseData);
+            }
+        })
+    } else {
+        response.status(400);
+        responseData.success = false;
+        responseData.errors.form = "Unauthorised user";
+        response.json(responseData);
+    }
+})
 
 export default routesStaff;

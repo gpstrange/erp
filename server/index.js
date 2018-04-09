@@ -42,7 +42,7 @@
 
     //Staff Auth
         import routesStaff from './routes/staff';
-        app.use('/api/staff/auth', routesStaff);
+        app.use('/api/staff', routesStaff);
 
 app.get('/*', (request, response) => {
         response.sendFile(path.join(__dirname, './index.html'))
