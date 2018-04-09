@@ -3,7 +3,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
-import { setAuthorizationToken, setCurrentUser } from '../common/auth';
+import { setAuthorizationToken, setCurrentStaff } from '../common/auth';
 
 export function staffLoginRequest(userData) {
     return dispatch => {
@@ -13,7 +13,7 @@ export function staffLoginRequest(userData) {
 
             setAuthorizationToken(token);
 
-            dispatch(setCurrentUser(jwtDecode(token)));
+            dispatch(setCurrentStaff(jwtDecode(token)));
         });
     }
 }

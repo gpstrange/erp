@@ -49,7 +49,7 @@ class StaffLogin extends React.Component {
                     this.context.router.push('/staff');
                 },
                 (error) => {
-                    console.log(error.response.data);
+                    console.log(error);
                     this.setState({ errors: error.response.data.errors, isLoading: false });
                 }
             );

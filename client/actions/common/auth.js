@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-import { USER_CURRENT_SET } from '../types';
+import { USER_CURRENT_SET, STAFF_CURRENT_SET } from '../types';
 
 export function setAuthorizationToken(token) {
     if(token) {
@@ -16,5 +16,12 @@ export function setCurrentUser(user) {
     return {
         type: USER_CURRENT_SET,
         user
+    };
+}
+
+export function setCurrentStaff(staff) {
+    return {
+        type: STAFF_CURRENT_SET,
+        staff
     };
 }

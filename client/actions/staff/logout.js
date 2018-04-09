@@ -1,6 +1,6 @@
 // Client / Actions / User / Logout
 
-import { setAuthorizationToken, setCurrentUser } from '../common/auth';
+import { setAuthorizationToken, setCurrentStaff } from '../common/auth';
 
 export function staffLogout() {
     return dispatch => {
@@ -8,6 +8,6 @@ export function staffLogout() {
 
         setAuthorizationToken(false);
 
-        dispatch(setCurrentUser({}));
+        dispatch(setCurrentStaff({}));
     }
 }

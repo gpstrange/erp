@@ -3,6 +3,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
+import isEmpty from 'lodash/isEmpty';
 
 import { flashMessageAdd } from '../../actions/flash-messages';
 import { userLogout } from '../../actions/user/logout';
@@ -19,15 +20,15 @@ class Header extends React.Component {
 
     render() {
         const { isAuthenticated } = this.props.auth;
+        console.log(this.props)
         const userLinks = (
-            <span>
-                &nbsp; &bull; &nbsp;
-                <Link to="/leaveForm">Leave form</Link>
-                &nbsp; &bull; &nbsp;
-                <a href="#" onClick={ this.logout.bind(this) }>Logout</a>
-            </span>
-        );
-
+        <span>
+            &nbsp; &bull; &nbsp;
+                {!isEmpty(this.props.auth.staff) ? (<Link to="/addEvent">Add Event</Link>) : (<Link to="/leaveForm">Leave form</Link>) }
+            &nbsp; &bull; &nbsp;
+                <a href="#" onClick={this.logout.bind(this)}>Logout</a>
+        </span>
+        )
         const guestLinks = (
             <span>
                 &nbsp; &bull; &nbsp;
@@ -43,7 +44,7 @@ class Header extends React.Component {
             <header>
                 <h1>KIT</h1>
                 <Link to="/home">Home</Link>
-                { isAuthenticated ? userLinks : guestLinks }
+                { isAuthenticated  ? userLinks : guestLinks }
             </header>
         );
     }

@@ -2,11 +2,12 @@
 
 import isEmpty from 'lodash/isEmpty';
 
-import { USER_CURRENT_SET } from '../actions/types';
+import { USER_CURRENT_SET, STAFF_CURRENT_SET } from '../actions/types';
 
 const initialState = {
     isAuthenticated: false,
-    user: {}
+    user: {},
+    staff:{}
 };
 
 export default (state = initialState, action = {}) => {
@@ -15,6 +16,11 @@ export default (state = initialState, action = {}) => {
             return {
                 isAuthenticated: !isEmpty(action.user),
                 user: action.user
+            };
+        case STAFF_CURRENT_SET:
+            return {
+                isAuthenticated: !isEmpty(action.staff),
+                staff: action.staff
             };
 
         default:
