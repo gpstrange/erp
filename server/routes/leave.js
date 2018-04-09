@@ -50,7 +50,9 @@ routesTweets.get('/getLeaveRequest', (request, response) => {
         leaveRequestCount: 0,
         errors: {}
     };
-    getAllTweets((err, leaveRequests) => {
+    let token = request.headers['authorization'].split(' ')[1];
+    let currentUser = jwtDecode(token);
+    getAllTweets(currentUser,(err, leaveRequests) => {
         if(err){
             response.status(500);
             responseData.errors = err;

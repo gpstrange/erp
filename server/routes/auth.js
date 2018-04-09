@@ -32,7 +32,8 @@ routesAuth.post('/', (request, response) => {
                         username: rows[0].username,
                         name: rows[0].name,
                         dept: rows[0].dept,
-                        phone: rows[0].phone
+                        phone: rows[0].phone,
+                        class: rows[0].class
                     }, serverConfig.secret);
                     console.log(responseData.token);
                     responseData.success = true;

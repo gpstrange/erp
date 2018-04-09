@@ -35,6 +35,7 @@ routesStaff.post('/', (request, response) => {
                         username: rows[0].username,
                         name: rows[0].name,
                         dept: rows[0].dept,
+                        class: rows[0].class,
                         phone: rows[0].phone
                     }, serverConfig.secret);
                     console.log(responseData.token);
