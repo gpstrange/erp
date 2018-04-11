@@ -24,12 +24,12 @@ const InputText = ({ type, value, onChange, name, id, label, error, placeholder 
 };
 
 InputText.propTypes = {
-    type: React.PropTypes.string.isRequired,
-    value: React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func.isRequired,
-    name: React.PropTypes.string.isRequired,
-    id: React.PropTypes.string.isRequired,
-    label: React.PropTypes.string.isRequired,
+    type: React.PropTypes.string,
+    value: React.PropTypes.string,
+    onChange: React.PropTypes.func,
+    name: React.PropTypes.string,
+    id: React.PropTypes.string,
+    label: React.PropTypes.string,
     placeholder: React.PropTypes.string,
 };
 

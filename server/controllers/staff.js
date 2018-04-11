@@ -69,7 +69,7 @@ export function createUser(newUserMysql, cb) {
 export function addEventHandler(user, data, cb){
     console.log(data)
     var insertQuery =
-        "INSERT INTO college_events ( name, description, fromDate, toDate, createdBy ) values (?,?,?,?,?)";
+        "INSERT INTO college_events ( name, description, fromDate, toDate, createdBy, createdUserType, class, dept ) values (?,?,?,?,?,?,?,?)";
     connection.query(
         insertQuery,
         [
@@ -77,7 +77,10 @@ export function addEventHandler(user, data, cb){
             data.description,
             new Date(data.m1),
             new Date(data.m2),
-            user.id
+            user.id,
+            data.createdUserType,
+            data.class,
+            data.dept
         ],
         function (err, rows) {
             if (err) {
