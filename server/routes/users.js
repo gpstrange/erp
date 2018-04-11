@@ -1,8 +1,9 @@
 // Server / Routes / Users
 
 import express from 'express';
+import jwtDecode from 'jwt-decode';
 
-import { checkUsernameAlreadyExists, createUser } from '../controllers/user';
+import { checkUsernameAlreadyExists, createUser, getAllEvents } from '../controllers/user';
 import { validateUserRegister } from '../../shared/validations/user/register';
 
 let routesUsers = express.Router();
@@ -50,5 +51,27 @@ routesUsers.post('/', (request, response) => {
         }
     });
 });
+
+routesUsers.get('/getEventRequest', (request, response)=>{
+    let responseData = {
+        success: false,
+        errors: {}
+    };
+    let token = request.headers['authorization'].split(' ')[1];
+    let currentUser = jwtDecode(token);
+    getAllEvents(currentUser, (err, events) => {
+        if (err) {
+            response.status(500);
+            responseData.errors = err;
+            response.json(responseData);
+        } else {
+            responseData.success = true;
+            responseData.events = events;
+            responseData.eventCount = events.length;
+            console.log(responseData.eventCount)
+            response.json(responseData);
+        }
+    });
+})
 
 export default routesUsers;

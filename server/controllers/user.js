@@ -52,21 +52,23 @@ export function createUser(newUserMysql, cb) {
             if (err) return cb(err);
             console.log(rows);
             newUserMysql.id = rows.insertId;
-
             return cb(null, rows);
         }
     );
 }
 
-
-/*
- * Get user's all tweets
- * Accepts: String username
- * Returns: Promise
- */
-// export function getAllTweetsByUsername(username) {
-//     return User.where({ username: username })
-//         .fetchAll({
-//             withRelated: ['tweets']
-//         });
-// }
+export function getAllEvents(user, cb) {
+    var query;
+    if(user){
+        query = `SELECT * from college_events
+         WHERE createdUserType = 'PRINCIPAL' OR
+         createdUserType = 'HOD' AND dept = '${user.dept}' OR
+         createdUserType = 'ADVISOR' AND class = '${user.class}'
+         ORDER BY createdAt DESC`;
+    }
+    connection.query(query, (err, rows)=>{
+        if (err) return cb(err);
+        console.log(rows);
+        return cb(null, rows) 
+    })
+}

@@ -7,7 +7,7 @@ import '../common/css/less/input-moment.less';
 
 import { validateTweet } from '../../../shared/validations/tweets';
 import { tweetRequest } from '../../actions/pages/tweet';
-import { flashMessageAdd } from '../../actions/flash-messages';
+import { flashMessageAdd, flashMessageDelete } from '../../actions/flash-messages';
 import InputTextarea from '../common/inputs/textarea';
 import Text from '../common/inputs/text';
 import InputMoment from "input-moment";
@@ -22,14 +22,19 @@ class TweetPage extends React.Component {
             parentMobile: '',
             reason: '',
             errors: {},
+            advisorName: '',
+            year:'',
+            section:'',
             m1: moment(),
             m2: moment(),
             isLoading: false,
             moment: Date.now()
         };
+        this.onChange = this.onChange.bind(this)
     }
 
     onChange(event) {
+        console.log(event)
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -50,8 +55,9 @@ class TweetPage extends React.Component {
                     console.log(response);
                     this.props.flashMessageAdd({
                         type: 'success',
-                        text: 'Tweet sent!'
+                        text: 'Leave request sent!'
                     });
+                    setTimeout(() => this.props.flashMessageDelete(), 3000)
                     this.setState({isLoading: false, tweet: ''});
                     this.context.router.push('/');
                 },
@@ -80,22 +86,51 @@ class TweetPage extends React.Component {
                 <form onSubmit={ this.onSubmit.bind(this) }>
                     <Text 
                         type="text"
+                        error={this.state.errors.parentMobile}
                         value={this.state.parentMobile}
-                        onChange={this.onChange.bind(this)}
+                        onChange={this.onChange}
                         name="parentMobile"
                         id="user-parentMobile"
                         label="ParentMobile"
                         placeholder="Enter mobile Number"
                     />
                     <InputTextarea
-                        error={ this.state.errors.tweet }
+                        error={ this.state.errors.reason}
                         value={ this.state.reason }
-                        onChange={ this.onChange.bind(this) }
+                        onChange={ this.onChange }
                         name="reason"
                         id="reason"
                         label="Reason"
                         placeholder="Enter the reason"
                         rows="3"
+                    />
+                    <div className="row" style={{ marginBottom: 10 }}>
+                        <div className="col-md-4">
+                            <label>Year : </label> &nbsp; 
+                            <select onChange={this.onChange} name="year">
+                                <option value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4'>4</option>
+                            </select>
+                        </div>
+                        <div className="col-md-4">
+                            <label>Section : </label> &nbsp;
+                            <select onChange={this.onChange} name="section">
+                                <option value='A'>A</option>
+                                <option value='B'>B</option>
+                                <option value='C'>C</option>
+                            </select>
+                        </div>
+                    </div>
+                    <Text
+                        type="text"
+                        value={this.state.advisorName}
+                        onChange={this.onChange}
+                        name="advisorName"
+                        id="advisorName"
+                        label="Class Advisor"
+                        placeholder="Enter Class Advisor Name"
                     />
                     <div className="row">
                     <div className="col-md-6">
@@ -124,7 +159,7 @@ class TweetPage extends React.Component {
                         />
                         </div>
                     </div>
-                    <button type="submit" disabled={ this.state.isLoading } className="btn btn-default">Submit</button>
+                    <button type="submit" disabled={this.state.isLoading} style={{ marginTop: 20 }} className="btn btn-primary">Submit</button>
                 </form>
             </section>
         );
@@ -133,11 +168,12 @@ class TweetPage extends React.Component {
 
 TweetPage.propTypes = {
     tweetRequest: React.PropTypes.func.isRequired,
-    flashMessageAdd: React.PropTypes.func.isRequired
+    flashMessageAdd: React.PropTypes.func.isRequired,
+    flashMessageDelete: React.PropTypes.func.isRequired
 };
 
 TweetPage.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default connect((state) => { return {} }, { tweetRequest, flashMessageAdd })(TweetPage);
+export default connect((state) => { return {} }, { tweetRequest, flashMessageAdd, flashMessageDelete })(TweetPage);
