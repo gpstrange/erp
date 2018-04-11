@@ -11,7 +11,7 @@ class EventItem extends React.Component {
         return (
             <div className="panel panel-default">
                 <div className="panel-body">
-                    <strong style={{ fontSize: 18 }}>{name}</strong>}<br />
+                    <strong style={{ fontSize: 18 }}>{name}</strong><br />
                     &bull; Event description : {description}<br />
                     &bull; Duration : {fromDate.replace('T', ' (').split('.')[0]}) - {toDate.replace('T', ' (').split('.')[0]})<br />
                 </div>

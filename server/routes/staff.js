@@ -24,7 +24,6 @@ routesStaff.post('/auth', (request, response) => {
         token: '',
         errors: {}
     };
-    console.log(request.body);
     const { username, password } = request.body;
     connection.query(
         "SELECT * FROM staffs WHERE username = ?",
@@ -35,13 +34,13 @@ routesStaff.post('/auth', (request, response) => {
                     responseData.token = jwt.sign({
                         id: rows[0].id,
                         type: 'staff',
+                        userType: rows[0].type,
                         username: rows[0].username,
                         name: rows[0].name,
                         dept: rows[0].dept,
                         class: rows[0].class,
                         phone: rows[0].phone
                     }, serverConfig.secret);
-                    console.log(responseData.token);
                     responseData.success = true;
                 } else {
                     response.status(401);
@@ -60,14 +59,12 @@ routesStaff.post('/signUp', (request, response) => {
         success: false,
         errors: {}
     };
-    console.log(request.body);
     checkUsernameAlreadyExists(request.body, (err, isTaken) => {
         if (err) {
             response.status(400);
             responseData.errors = err;
             return response.json(responseData)
         }
-        console.log(isTaken);
         if (!isTaken) {
             let { errors, isValid } = validateUserRegister(request.body);
             if (isValid) {
@@ -106,9 +103,7 @@ routesStaff.post('/addEvent', (request, response)=>{
     };
     let token = request.headers['authorization'].split(' ')[1];
     let currentUser = jwtDecode(token);
-    console.log(currentUser)
     if(currentUser.type === 'staff' && !isEmpty(request.body)){
-        console.log("Hereeeeeeeeeeeeeeeeeee/.....................")
         addEventHandler(currentUser, request.body, (err, result)=>{
             if (err) {
                 response.status(500);

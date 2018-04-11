@@ -37,7 +37,6 @@ class HomePage extends React.Component {
         this.setState({ errors: {}, isLoading: true });
         this.props.tweetGetRequest(this.state.page).then(
             (response) => {
-                console.log(response);
                 this.setState({ isLoading: false });
                 if(!isEmpty(response.data.leaveRequests)) {
                     this.setState({ leaveRequests: response.data.leaveRequests, leaveRequestCount: response.data.leaveRequestCount });

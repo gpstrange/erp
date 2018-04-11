@@ -7,7 +7,6 @@ import moment from 'moment';
 class TweetItem extends React.Component {
     render() {
         const  { id, reason, username, name, createdAt, parentMobile, fromDate, toDate  } = this.props.leaveRequest;
-        console.log(reason)
         return (
             <div className="panel panel-default">
                 <div className="panel-body">

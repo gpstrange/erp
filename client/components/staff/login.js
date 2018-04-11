@@ -40,7 +40,6 @@ class StaffLogin extends React.Component {
             this.setState({errors: {}, isLoading: true});
             this.props.staffLoginRequest(this.state).then(
                 (response) => {
-                    console.log(response);
                     this.props.flashMessageAdd({
                         type: 'success',
                         text: 'You have logged in successfully.'
@@ -71,7 +70,7 @@ class StaffLogin extends React.Component {
                         name="username"
                         id="user-username"
                         label="Username"
-                        placeholder="Eg: jonsnow"
+                        placeholder="Eg: ECE123"
                     />
                     <InputText
                         error={ this.state.errors.password }

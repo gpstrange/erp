@@ -15,7 +15,6 @@ connection.query("USE " + dbconfig.database);
  * Returns: Promise
  */
 export function createTweet(user, data, cb) {
-    console.log(data)
     if(!isEmpty(data) && !isEmpty(data)) {
         var insertQuery =
             "INSERT INTO leaveRequests ( username, name, class, dept, phone, reason, advisorName, parentMobile, fromDate, toDate ) values (?,?,?,?,?,?,?,?,?,?)";
@@ -34,8 +33,6 @@ export function createTweet(user, data, cb) {
             ],
             function (err, rows) {
                 if (err) return cb(err);
-                console.log("DB done")
-                console.log(rows);
                 return cb(null, rows);
             }    
         )
@@ -48,11 +45,18 @@ export function createTweet(user, data, cb) {
  * Returns: Promise
  */
 export function getAllTweets(user,cb) {
-    console.log("get funstion..............................")
-    console.log(user)
-    connection.query(`SELECT * from leaveRequests WHERE class = "${user.class}" ORDER BY createdAt DESC`, (err, rows)=>{
+    var query;
+    if(user.userType == 'PRINCIPAL'){
+        query = `SELECT * from leaveRequests ORDER BY createdAt DESC`;
+    } else if (user.userType == 'HOD'){
+        query = `SELECT * from leaveRequests WHERE dept = '${user.dept}' ORDER BY createdAt DESC`;
+    } else if (user.userType == 'ADVISOR') {
+        query = `SELECT * from leaveRequests WHERE class = '${user.class}' ORDER BY createdAt DESC`;
+    } else if (user.userType == 'WARDEN') {
+        query = `SELECT * from leaveRequests ORDER BY createdAt DESC`;
+    }
+    connection.query(query, (err, rows)=>{
         if (err) return cb(err);
-        console.log(rows);
         return cb(null, rows);
     })
 }

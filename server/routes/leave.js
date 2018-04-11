@@ -16,10 +16,8 @@ routesTweets.post('/addLeaveRequest', middlewareAuthenticate, (request, response
         success: false,
         errors: {}
     };
-    console.log(request.body);
     let token = request.headers['authorization'].split(' ')[1];
     let currentUser = jwtDecode(token);
-    console.log(currentUser)
     // let { errors, isValid } = validateTweet(request.body);
     if (true) {
         const leaveData = request.body;
@@ -61,7 +59,6 @@ routesTweets.get('/getLeaveRequest', (request, response) => {
             responseData.success = true;
             responseData.leaveRequests = leaveRequests;
             responseData.leaveRequestCount = leaveRequests.length;
-            console.log(responseData.leaveRequestCount)
             response.json(responseData);
         }
     });

@@ -19,7 +19,6 @@ routesAuth.post('/', (request, response) => {
         token: '',
         errors: {}
     };
-    console.log(request.body);
     const { username, password } = request.body;
     connection.query(
         "SELECT * FROM users WHERE username = ?",
@@ -35,7 +34,6 @@ routesAuth.post('/', (request, response) => {
                         phone: rows[0].phone,
                         class: rows[0].class
                     }, serverConfig.secret);
-                    console.log(responseData.token);
                     responseData.success = true;
                 } else {
                     response.status(401);

@@ -13,17 +13,20 @@ routesUsers.post('/', (request, response) => {
         success: false,
         errors: {}
     };
-    console.log(request.body);
+    let userClass = null;
     checkUsernameAlreadyExists(request.body, (err, isTaken) => { 
         if(err) {
             response.status(400);
             responseData.errors = err;
             return response.json(responseData)
          }
-        console.log(isTaken);
         if(!isTaken) {
             let { errors, isValid } = validateUserRegister(request.body);
             if(isValid){
+                if (request.body.year && request.body.dept && request.body.section){
+                    userClass = request.body.year + request.body.dept + request.body.section;
+                    request.body.class = userClass;
+                }
                 createUser(request.body, (err, result) => {
                     if(err){
                         response.status(500);

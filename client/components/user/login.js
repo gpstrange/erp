@@ -40,7 +40,6 @@ class UserLogin extends React.Component {
             this.setState({errors: {}, isLoading: true});
             this.props.userLoginRequest(this.state).then(
                 (response) => {
-                    console.log(response);
                     this.props.flashMessageAdd({
                         type: 'success',
                         text: 'You have logged in successfully.'
@@ -50,7 +49,6 @@ class UserLogin extends React.Component {
                     this.context.router.push('/home');
                 },
                 (error) => {
-                    console.log(error.response.data);
                     this.setState({ errors: error.response.data.errors, isLoading: false });
                 }
             );
@@ -71,7 +69,7 @@ class UserLogin extends React.Component {
                         name="username"
                         id="user-username"
                         label="Username"
-                        placeholder="Eg: jonsnow"
+                        placeholder="Eg: 711516106037"
                     />
                     <InputText
                         error={ this.state.errors.password }

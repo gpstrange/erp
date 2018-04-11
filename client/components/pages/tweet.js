@@ -34,7 +34,6 @@ class TweetPage extends React.Component {
     }
 
     onChange(event) {
-        console.log(event)
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -52,14 +51,13 @@ class TweetPage extends React.Component {
             this.setState({errors: {}, isLoading: true});
             this.props.tweetRequest(this.state).then(
                 (response) => {
-                    console.log(response);
                     this.props.flashMessageAdd({
                         type: 'success',
                         text: 'Leave request sent!'
                     });
                     setTimeout(() => this.props.flashMessageDelete(), 3000)
                     this.setState({isLoading: false, tweet: ''});
-                    this.context.router.push('/');
+                    this.context.router.push('/home');
                 },
                 (error) => {
                     console.log(11111111111111111111111)
@@ -104,25 +102,6 @@ class TweetPage extends React.Component {
                         placeholder="Enter the reason"
                         rows="3"
                     />
-                    <div className="row" style={{ marginBottom: 10 }}>
-                        <div className="col-md-4">
-                            <label>Year : </label> &nbsp; 
-                            <select onChange={this.onChange} name="year">
-                                <option value='1'>1</option>
-                                <option value='2'>2</option>
-                                <option value='3'>3</option>
-                                <option value='4'>4</option>
-                            </select>
-                        </div>
-                        <div className="col-md-4">
-                            <label>Section : </label> &nbsp;
-                            <select onChange={this.onChange} name="section">
-                                <option value='A'>A</option>
-                                <option value='B'>B</option>
-                                <option value='C'>C</option>
-                            </select>
-                        </div>
-                    </div>
                     <Text
                         type="text"
                         value={this.state.advisorName}

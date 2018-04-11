@@ -58,7 +58,6 @@ export function createUser(newUserMysql, cb) {
         ],
         function (err, rows) {
             if (err) return cb(err);
-            console.log(rows);
             newUserMysql.id = rows.insertId;
 
             return cb(null, rows);
@@ -67,7 +66,6 @@ export function createUser(newUserMysql, cb) {
 }
 
 export function addEventHandler(user, data, cb){
-    console.log(data)
     var insertQuery =
         "INSERT INTO college_events ( name, description, fromDate, toDate, createdBy, createdUserType, class, dept ) values (?,?,?,?,?,?,?,?)";
     connection.query(
@@ -78,16 +76,15 @@ export function addEventHandler(user, data, cb){
             new Date(data.m1),
             new Date(data.m2),
             user.id,
-            data.createdUserType,
-            data.class,
-            data.dept
+            user.userType,
+            user.class,
+            user.dept
         ],
         function (err, rows) {
             if (err) {
                 console.log(err)
                 return cb(err)
             };
-            console.log(rows);
 
             return cb(null, rows);
         }

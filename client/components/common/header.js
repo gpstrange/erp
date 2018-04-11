@@ -22,9 +22,9 @@ class Header extends React.Component {
 
     render() {
         const { isAuthenticated } = this.props.auth;
-        console.log(this.props)
         const userLinks = (
         <span>
+            <Link to="/staff">Home</Link>
             &nbsp; &bull; &nbsp;
                 {!isEmpty(this.props.auth.staff) ? (<Link to="/addEvent">Add Event</Link>) : (<Link to="/leaveForm">Leave form</Link>) }
             &nbsp; &bull; &nbsp;
@@ -33,6 +33,7 @@ class Header extends React.Component {
         )
         const guestLinks = (
             <span>
+                <Link to="/home">Home</Link>
                 &nbsp; &bull; &nbsp;
                 <Link to="/login">Login</Link>
                 &nbsp; &bull; &nbsp;
@@ -45,7 +46,6 @@ class Header extends React.Component {
         return (
             <header>
                 <h1>KIT</h1>
-                <Link to="/home">Home</Link>
                 { isAuthenticated  ? userLinks : guestLinks }
             </header>
         );

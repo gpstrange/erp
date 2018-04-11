@@ -35,7 +35,6 @@ class studentHomePage extends React.Component {
         this.setState({ errors: {}, isLoading: true });
         this.props.eventGetRequest(this.state).then(
             (response) => {
-                console.log(response);
                 this.setState({ isLoading: false });
                 if (!isEmpty(response.data.events)) {
                     this.setState({ events: response.data.events, eventCount: response.data.eventCount });

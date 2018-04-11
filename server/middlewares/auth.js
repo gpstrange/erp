@@ -17,8 +17,6 @@ export default (request, response, next) => {
                 response.status(403).json({ errors: 'Authentication failed. Token is invalid.' });
             } else {
                 request.currentUser = jwtDecode(token);
-                console.log(request.currentUser)
-                console.log('11111111111111111111111111111111111')
                 next();
             }
         });

@@ -29,7 +29,6 @@ class AddEventPage extends React.Component {
     }
 
     onChange(event) {
-        console.log(event)
         this.setState({
             [event.target.name]: event.target.value
         });
@@ -40,14 +39,13 @@ class AddEventPage extends React.Component {
             this.setState({ errors: {}, isLoading: true });
             this.props.addEventRequest(this.state).then(
                 (response) => {
-                    console.log(response);
                     this.props.flashMessageAdd({
                         type: 'success',
                         text: 'Event added!'
                     });
                     setTimeout(() => this.props.flashMessageDelete(), 3000)
                     this.setState({ isLoading: false });
-                    this.context.router.push('/home');
+                    this.context.router.push('/staff');
                 },
                 (error) => {
                     this.props.flashMessageAdd({

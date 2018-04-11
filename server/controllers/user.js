@@ -50,7 +50,6 @@ export function createUser(newUserMysql, cb) {
         ],
         function (err, rows) {
             if (err) return cb(err);
-            console.log(rows);
             newUserMysql.id = rows.insertId;
             return cb(null, rows);
         }
@@ -68,7 +67,6 @@ export function getAllEvents(user, cb) {
     }
     connection.query(query, (err, rows)=>{
         if (err) return cb(err);
-        console.log(rows);
         return cb(null, rows) 
     })
 }
