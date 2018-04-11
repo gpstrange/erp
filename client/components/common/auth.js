@@ -3,7 +3,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { flashMessageAdd } from '../../actions/flash-messages';
+import { flashMessageAdd, flashMessageDelete } from '../../actions/flash-messages';
 
 export default function(ComposedComponent) {
     class Auth extends React.Component {
@@ -13,7 +13,7 @@ export default function(ComposedComponent) {
                     type: 'error',
                     text: 'You need to be logged in to access this page.'
                 });
-
+                setTimeout(() => this.props.flashMessageDelete(), 3000)
                 this.context.router.push('/login');
             }
         }
@@ -33,7 +33,8 @@ export default function(ComposedComponent) {
 
     Auth.propTypes = {
         isAuthenticated: React.PropTypes.bool.isRequired,
-        flashMessageAdd: React.PropTypes.func.isRequired
+        flashMessageAdd: React.PropTypes.func.isRequired,
+        flashMessageDelete: React.PropTypes.func.isRequired
     };
 
     Auth.contextTypes = {
@@ -46,5 +47,5 @@ export default function(ComposedComponent) {
         }
     }
 
-    return connect(mapStateProps, { flashMessageAdd })(Auth);
+    return connect(mapStateProps, { flashMessageAdd, flashMessageDelete })(Auth);
 }

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { validateUserLogin } from '../../../shared/validations/user/login';
 import { userLoginRequest } from '../../actions/user/login';
-import { flashMessageAdd } from '../../actions/flash-messages';
+import { flashMessageAdd, flashMessageDelete } from '../../actions/flash-messages';
 import InputText from '../common/inputs/text';
 
 class UserLogin extends React.Component {
@@ -45,6 +45,7 @@ class UserLogin extends React.Component {
                         type: 'success',
                         text: 'You have logged in successfully.'
                     });
+                    setTimeout(() => this.props.flashMessageDelete() , 3000)
                     this.setState({ isLoading: false });
                     this.context.router.push('/home');
                 },
@@ -92,11 +93,12 @@ class UserLogin extends React.Component {
 
 UserLogin.propTypes = {
     userLoginRequest: React.PropTypes.func.isRequired,
-    flashMessageAdd: React.PropTypes.func.isRequired
+    flashMessageAdd: React.PropTypes.func.isRequired,
+    flashMessageDelete: React.PropTypes.func.isRequired,
 };
 
 UserLogin.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default connect((state) => { return {} }, { userLoginRequest, flashMessageAdd })(UserLogin);
+export default connect((state) => { return {} }, { userLoginRequest, flashMessageAdd, flashMessageDelete })(UserLogin);

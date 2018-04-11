@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
-import { flashMessageAdd } from '../../actions/flash-messages';
+import { flashMessageAdd, flashMessageDelete } from '../../actions/flash-messages';
 import { userLogout } from '../../actions/user/logout';
 
 class Header extends React.Component {
@@ -16,6 +16,8 @@ class Header extends React.Component {
             type: 'success',
             text: 'You have logged out successfully.'
         });
+        setTimeout(() => this.props.flashMessageDelete(), 3000)
+        this.context.router.push('/');
     }
 
     render() {
@@ -53,7 +55,12 @@ class Header extends React.Component {
 Header.propTypes = {
     auth: React.PropTypes.object.isRequired,
     userLogout: React.PropTypes.func.isRequired,
-    flashMessageAdd: React.PropTypes.func.isRequired
+    flashMessageAdd: React.PropTypes.func.isRequired,
+    flashMessageDelete: React.PropTypes.func.isRequired
+};
+
+Header.contextTypes = {
+    router: React.PropTypes.object.isRequired
 };
 
 function mapStateToProps(state) {
@@ -62,4 +69,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { userLogout, flashMessageAdd })(Header);
+export default connect(mapStateToProps, { userLogout, flashMessageAdd, flashMessageDelete })(Header);

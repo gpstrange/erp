@@ -7,7 +7,7 @@ import '../common/css/less/input-moment.less';
 
 import { validateTweet } from '../../../shared/validations/tweets';
 import { addEventRequest } from '../../actions/pages/addEvent';
-import { flashMessageAdd } from '../../actions/flash-messages';
+import { flashMessageAdd, flashMessageDelete } from '../../actions/flash-messages';
 import InputTextarea from '../common/inputs/textarea';
 import Text from '../common/inputs/text';
 import InputMoment from "input-moment";
@@ -45,6 +45,7 @@ class AddEventPage extends React.Component {
                         type: 'success',
                         text: 'Event added!'
                     });
+                    setTimeout(() => this.props.flashMessageDelete(), 3000)
                     this.setState({ isLoading: false });
                     this.context.router.push('/home');
                 },
@@ -53,6 +54,7 @@ class AddEventPage extends React.Component {
                         type: 'Failed',
                         text: 'Event creation failed!'
                     });
+                    setTimeout(() => this.props.flashMessageDelete(), 3000)
                     console.log(11111111111111111111111)
                     console.log(error.response.data);
                     this.setState({ errors: error.response.data.errors, isLoading: false });
@@ -130,11 +132,12 @@ class AddEventPage extends React.Component {
 
 AddEventPage.propTypes = {
     addEventRequest: React.PropTypes.func.isRequired,
-    flashMessageAdd: React.PropTypes.func.isRequired
+    flashMessageAdd: React.PropTypes.func.isRequired,
+    flashMessageDelete: React.PropTypes.func.isRequired   
 };
 
 AddEventPage.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default connect((state) => { return {} }, { addEventRequest, flashMessageAdd })(AddEventPage);
+export default connect((state) => { return {} }, { addEventRequest, flashMessageAdd, flashMessageDelete })(AddEventPage);

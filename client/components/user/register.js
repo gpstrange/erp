@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import { validateUserRegister } from '../../../shared/validations/user/register';
 import { userRegisterRequest } from '../../actions/user/register';
-import { flashMessageAdd } from '../../actions/flash-messages';
+import { flashMessageAdd, flashMessageDelete } from '../../actions/flash-messages';
 import InputText from '../common/inputs/text';
 
 class UserRegister extends React.Component {
@@ -47,6 +47,7 @@ class UserRegister extends React.Component {
                         type: 'success',
                         text: 'You have registered successfully.'
                     });
+                    setTimeout(() => this.props.flashMessageDelete(), 3000)
                     this.setState({isLoading: false});
                     this.context.router.push('/login');
                 },
@@ -93,11 +94,12 @@ class UserRegister extends React.Component {
 
 UserRegister.propTypes = {
     userRegisterRequest: React.PropTypes.func.isRequired,
-    flashMessageAdd: React.PropTypes.func.isRequired
+    flashMessageAdd: React.PropTypes.func.isRequired,
+    flashMessageDelete: React.PropTypes.func.isRequired
 };
 
 UserRegister.contextTypes = {
     router: React.PropTypes.object.isRequired
 };
 
-export default connect((state) => { return {} }, { userRegisterRequest, flashMessageAdd })(UserRegister);
+export default connect((state) => { return {} }, { userRegisterRequest, flashMessageAdd, flashMessageDelete })(UserRegister);
