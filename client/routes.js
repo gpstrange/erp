@@ -12,6 +12,7 @@ import staffLogin from './components/staff/login';
 import UserRegister from './components/user/register';
 import UserProfile from './components/user/profile';
 import addEvent from './components/pages/addEvent';
+import StudentHomePage from './components/pages/studentHome';
 
 export default (
     <Route path="/" component={ App }>
@@ -21,7 +22,7 @@ export default (
         <Route path="register" component={ UserRegister } />
         <Route path="staffLogin" component={staffLogin} />
         <Route path="profile/:username(/:page)" component={ UserProfile } />
-        <Route path="home" component={ HomePage } />
+        <Route path="home" component={ StudentHomePage } />
         <Route path="staff" component={HomePage} />
         <Route path="addEvent" component={addEvent} />
     </Route>
