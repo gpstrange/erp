@@ -147,7 +147,7 @@ class UserRegister extends React.Component {
                     <div className="row" style={{ marginBottom: 10 }}>
                         <div className="col-md-2">
                             <label>Year : </label> &nbsp;
-                            <select onChange={this.onChange} name="year" value="1">
+                            <select onChange={this.onChange} name="year" value={this.state.year}>
                                 <option value='1'>1</option>
                                 <option value='2'>2</option>
                                 <option value='3'>3</option>
@@ -156,7 +156,7 @@ class UserRegister extends React.Component {
                         </div>
                         <div className="col-md-3">
                             <label>Dept : </label> &nbsp;
-                            <select onChange={this.onChange} name="dept" value="ECE">
+                            <select onChange={this.onChange} name="dept" value={this.state.dept}>
                                 <option value='ECE'>ECE</option>
                                 <option value='CSE'>CSE</option>
                                 <option value='EEE'>EEE</option>
@@ -172,7 +172,7 @@ class UserRegister extends React.Component {
                         </div>
                         <div className="col-md-2">
                             <label>Section : </label> &nbsp;
-                            <select onChange={this.onChange} name="section" value="A">
+                            <select onChange={this.onChange} name="section" value={this.state.section}>
                                 <option value='A'>A</option>
                                 <option value='B'>B</option>
                                 <option value='C'>C</option>
@@ -180,7 +180,7 @@ class UserRegister extends React.Component {
                         </div> 
                         <div className="col-md-2">
                             <label>Community</label>&nbsp;
-                            <select onChange={this.onChange} name="community" value="BC">
+                            <select onChange={this.onChange} name="community" value={this.state.community}>
                                 <option value="">BC</option>
                                 <option value="MBC">MBC</option>
                                 <option value="BCM">BCM</option>
@@ -191,7 +191,7 @@ class UserRegister extends React.Component {
                         </div>
                         <div className="col-md-3">
                             <label>Accomodation : </label> &nbsp;
-                            <select onChange={this.onChange} name="accomodation" value="HOSTELLER">
+                            <select onChange={this.onChange} name="accomodation" value={this.state.accomodation}>
                                 <option value='HOSTELLER'>HOSTELLER</option>
                                 <option value='DAYSCHOLER'>DAYSCHOLER</option>
                             </select>
