@@ -7,7 +7,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import { tweetGetRequest } from '../../actions/pages/tweet';
 import Pagination from '../common/pagination';
-import TweetItem from './tweet-item';
+import LeaveItem from './tweet-item';
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -53,7 +53,7 @@ class HomePage extends React.Component {
 
     render() {
         const leaveRequests = this.state.leaveRequests.map((leaveRequest) => {
-            return <TweetItem key={ leaveRequest.id } leaveRequest={ leaveRequest } />
+            return <LeaveItem key={ leaveRequest.id } leaveRequest={ leaveRequest } />
         });
         const pleaseWaitMessage = <p>Please wait...</p>;
         const noTweetsMessage = <p>Strange. No requests yet. 

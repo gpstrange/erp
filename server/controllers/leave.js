@@ -57,10 +57,53 @@ export function getAllTweets(user,cb) {
     }
     connection.query(query, (err, rows)=>{
         if (err) return cb(err);
+        console.log(rows)
         return cb(null, rows);
     })
 }
 
+export function acceptLeave(user, data, cb){
+    console.log(1111111111111111111111111)
+    var query;
+    if(user.userType == 'PRINCIPAL'){
+        query = `UPDATE leaveRequests SET principalPermission = '1', accepted = '1' WHERE id=${data.id}`;
+    } else if (user.userType == 'HOD'){
+        query = `UPDATE leaveRequests SET hodPermission = '1' WHERE id=${data.id}`;
+    } else if (user.userType == 'ADVISOR') {
+        query = `UPDATE leaveRequests SET advisorPermission = '1' WHERE id=${data.id}`;
+    } else if (user.userType == 'WARDEN') {
+        query = `UPDATE leaveRequests SET wardenPermission = '1' WHERE id=${data.id}`;
+    }
+    connection.query(query, (err, rows)=>{
+        if (err) {
+            console.log(err)
+            return cb(err)
+        };
+        console.log(rows)
+        return cb(null, rows);
+    })
+}
+export function rejectLeave(user, data, cb){
+    console.log(1111111111111111111111111)
+    var query;
+    if(user.userType == 'PRINCIPAL'){
+        query = `UPDATE leaveRequests SET rejected='1' WHERE id=${data.id}`;
+    } else if (user.userType == 'HOD'){
+        query = `UPDATE leaveRequests SET rejected='1' WHERE id=${data.id}`;
+    } else if (user.userType == 'ADVISOR') {
+        query = `UPDATE leaveRequests SET rejected='1' WHERE id=${data.id}`;
+    } else if (user.userType == 'WARDEN') {
+        query = `UPDATE leaveRequests SET rejected='1' WHERE id=${data.id}`;
+    }
+    connection.query(query, (err, rows)=>{
+        if (err) {
+            console.log(err)
+            return cb(err)
+        };
+        console.log(rows)
+        return cb(null, rows);
+    })
+}
 /*
  * Get list of all tweets
  * Returns: Promise

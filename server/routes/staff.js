@@ -12,6 +12,7 @@ var connection = mysql.createConnection(dbconfig.connection);
 connection.query("USE " + dbconfig.database);
 
 import { checkUsernameAlreadyExists, createUser, addEventHandler } from '../controllers/staff';
+import {acceptLeave, rejectLeave} from '../controllers/leave';
 import { validateUserRegister } from '../../shared/validations/user/register';
 
 import serverConfig from '../configs/server';
@@ -109,6 +110,66 @@ routesStaff.post('/addEvent', (request, response)=>{
                 response.status(500);
                 responseData.success = false;
                 responseData.errors.form = "Event Creation failed";
+                response.json(responseData);
+            } else {
+                responseData = result;
+                responseData.success = true;
+                response.status(201); // created status
+                response.json(responseData);
+            }
+        })
+    } else {
+        response.status(400);
+        responseData.success = false;
+        responseData.errors.form = "Unauthorised user";
+        response.json(responseData);
+    }
+})
+routesStaff.post('/leaveAccept', (request, response)=>{
+    let responseData = {
+        success: false,
+        errors: {}
+    };
+    let token = request.headers['authorization'].split(' ')[1];
+    let currentUser = jwtDecode(token);
+    console.log(2222222222222222)
+    console.log(!isEmpty(request.body))
+    if(currentUser.type === 'staff' && !isEmpty(request.body)){
+        acceptLeave(currentUser, request.body, (err, result)=>{
+            if (err) {
+                response.status(500);
+                responseData.success = false;
+                responseData.errors.form = "Leave accept failed";
+                response.json(responseData);
+            } else {
+                responseData = result;
+                responseData.success = true;
+                response.status(201); // created status
+                response.json(responseData);
+            }
+        })
+    } else {
+        response.status(400);
+        responseData.success = false;
+        responseData.errors.form = "Unauthorised user";
+        response.json(responseData);
+    }
+})
+routesStaff.post('/leaveReject', (request, response)=>{
+    let responseData = {
+        success: false,
+        errors: {}
+    };
+    let token = request.headers['authorization'].split(' ')[1];
+    let currentUser = jwtDecode(token);
+    console.log(2222222222222222)
+    console.log(!isEmpty(request.body))
+    if(currentUser.type === 'staff' && !isEmpty(request.body)){
+        rejectLeave(currentUser, request.body, (err, result)=>{
+            if (err) {
+                response.status(500);
+                responseData.success = false;
+                responseData.errors.form = "Leave reject failed";
                 response.json(responseData);
             } else {
                 responseData = result;

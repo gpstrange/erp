@@ -34,7 +34,7 @@
 
     // Leave
         import routesLeave from './routes/leave';
-        app.use('/api/tweets', routesLeave);
+        app.use('/api/leaves', routesLeave);
 
     // Auth
         import routesAuth from './routes/auth';
