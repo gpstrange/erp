@@ -1,7 +1,7 @@
 # ERP app
 ERP application for an educational institution.
 
-## PreRequsites
+## Prerequisite
 MySQL
 
 ## Setup
