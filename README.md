@@ -1,8 +1,11 @@
 # ERP app
-Lets build an ERP application for an educational institution.
+ERP application for an educational institution.
+
+## PreRequsites
+MySQL
 
 ## Setup
-- Clone the repository `git clone git@gitlab.com:Guru2402/erp-college.git`
+- Clone the repository `git clone <url>`
 - Install npm modules `npm install`
 - Change the database configuration: `server/configs/database.js`
 - Import tables from `dbDump.sql`
